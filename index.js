@@ -20,13 +20,13 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 client.connect(err => {
 
-  const customerServices = client.db(process.env.DB_NAME).collection(process.env.DB_COLLECTION_CUSTOMER);
+  const customerServices = client.db(process.env.DB_NAME).collection('customer-service');
 
-  const customerReviews = client.db(process.env.DB_NAME).collection(process.env.DB_COLLECTION_REVIEW);
+  const customerReviews = client.db(process.env.DB_NAME).collection('customer-review');
 
-  const adminServices = client.db(process.env.DB_NAME).collection(process.env.DB_COLLECTION_ADMIN);
+  const adminServices = client.db(process.env.DB_NAME).collection('admin-add-services');
 
-  const adminEmails = client.db(process.env.DB_NAME).collection(process.env.DB_COLLECTION_ADMIN_EMAIL);
+  const adminEmails = client.db(process.env.DB_NAME).collection('admin-emails');
   console.log('monodb connected YAY')
 
   app.get('/', (req, res) => {
