@@ -116,13 +116,10 @@ client.connect(err => {
     const file = req.files.file
     const title = req.body.title
     const desc = req.body.desc
-    const filePath = `${__dirname}/images/${file.name}`
-
-    file.mv(filePath, err => {
-      const newImg = fs.readFileSync(filePath)
-      const encImg = newImg.toString('base64')
-
-      const image = {
+    const newImg =file.data
+    const encImg = newImg.toString('base64')
+    
+    const image = {
         contentType: file.mimetype,
         size: file.size,
         img: Buffer.from(encImg, 'base64')
@@ -131,15 +128,11 @@ client.connect(err => {
 
       adminServices.insertOne({ title, desc, image })
         .then(result => {
-          fs.remove(filePath)
-
-        })
-      return res.send({ name: file.name, path: `/${file.name}` })
+       res.send(result.insertedCount > 0)   
+       })
     })
-
-
-  })
-  app.post('/addAdminEmail', (req, res) => {
+  
+    app.post('/addAdminEmail', (req, res) => {
     const addEmail = req.body;
     console.log(addEmail)
     adminEmails.insertOne(addEmail)
