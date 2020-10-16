@@ -8,7 +8,7 @@ const app = express()
 
 app.use(cors())
 app.use(bodyParser.json())
-app.use(express.static('doctors'))
+app.use(express.static('images'))
 app.use(fileUpload())
 
 const port = 8080
@@ -80,7 +80,7 @@ client.connect(err => {
     const catagory = req.body.catagory
     const details = req.body.details
     const email=req.body.email
-    const filePath = `${__dirname}/doctors/${file.name}`
+    const filePath = `${__dirname}/images/${file.name}`
 
     file.mv(filePath, err => {
       const newImg = fs.readFileSync(filePath)
@@ -116,7 +116,7 @@ client.connect(err => {
     const file = req.files.file
     const title = req.body.title
     const desc = req.body.desc
-    const filePath = `${__dirname}/doctors/${file.name}`
+    const filePath = `${__dirname}/images/${file.name}`
 
     file.mv(filePath, err => {
       const newImg = fs.readFileSync(filePath)
